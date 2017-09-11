@@ -1,9 +1,8 @@
 <div>
   <todo-header placeholder="What do you want" (onEnterUp)="addTodo($event)">
   </todo-header>
-  <todo-list [todos]="todos | async" (onToggleAll)="toggleAll()" (onRemoveTodo)="removeTodo($event)" (onToggleTodo)="toggleTodo($event)">
+  <todo-list [todos]="todos" (onToggleAll)="toggleAll()" (onRemoveTodo)="removeTodo($event)" (onToggleTodo)="toggleTodo($event)">
   </todo-list>
-  <todo-footer [itemCount]="(todos | async).length " (onClear)="clearCompleted()">
+  <todo-footer [itemCount]="todos.length " (onClear)="clearCompleted()">
   </todo-footer>
-  {{todo.length | async}}
 </div>

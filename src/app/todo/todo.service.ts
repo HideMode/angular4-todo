@@ -1,6 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { UUID } from 'angular2-uuid';
 
 import { Observable } from 'rxjs/Observable';
 // import { Store } from '@ngrx/store';
@@ -14,12 +13,12 @@ import {
   TOGGLE_ALL,
   CLEAR_COMPLETED,
   FETCH_FROM_API
-} from './todo.action'
+} from './todo.action';
 
 @Injectable()
 export class TodoService {
 
-  private api_url = 'http://localhost:4200/todos';
+  private api_url = 'http://localhost:4200';
   private headers = new Headers({'Content-Type': 'application/json'});
   private auth$: Observable<number>;
 
@@ -32,60 +31,61 @@ export class TodoService {
     //   .filter(auth => auth.user !== null)
     //   .map(auth => auth.user.id);
   }
-
+  uuid() {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + s4() + s4();
+  }
   // POST /todos
-  addTodo(desc:string): void{
-    // this.auth$.flatMap(userId => {
-    //   let todoToAdd = {
-    //     id: UUID.UUID(),
-    //     desc: desc,
-    //     completed: false,
-    //     userId: userId
-    //   };
-    //   return this.http
-    //     .post(this.api_url, JSON.stringify(todoToAdd), {headers: this.headers})
-    //     .map(res => res.json() as Todo);
-    // }).subscribe(todo => {
-    //     this.store$.dispatch({type: ADD_TODO, payload: todo});
-    //   });
+  addTodo(desc: string): void {
+      const todoToAdd: Todo = {
+        id: this.uuid(),
+        desc: desc,
+        completed: false
+      };
+      Observable.interval(300)
+      .take(5)
+      .subscribe(() => {
+        // this.store$.dispatch({type: ADD_TODO, payload: todoToAdd});
+      });
   }
   // It was PUT /todos/:id before
   // But we will use PATCH /todos/:id instead
   // Because we don't want to waste the bytes those don't change
   toggleTodo(todo: Todo): void {
-    // const url = `${this.api_url}/${todo.id}`;
-    // let updatedTodo = Object.assign({}, todo, {completed: !todo.completed});
-    // this.http
-    //   .patch(url, JSON.stringify({completed: !todo.completed}), {headers: this.headers})
-    //   .mapTo(updatedTodo)
-    //   .subscribe(todo => {
-    //     this.store$.dispatch({
-    //       type: TOGGLE_TODO, 
-    //       payload: updatedTodo
-    //     });
-    //   });
+    const updatedTodo: Todo = Object.assign({}, todo, {completed: !todo.completed});
+    Observable.interval(300)
+    .take(5)
+    .subscribe(() => {
+      // this.store$.dispatch({
+      //         type: TOGGLE_TODO, 
+      //         payload: updatedTodo
+      //       });
+    });
   }
   // DELETE /todos/:id
   removeTodo(todo: Todo): void {
-    // const url = `${this.api_url}/${todo.id}`;
-    // this.http
-    //   .delete(url, {headers: this.headers})
-    //   .mapTo(Object.assign({}, todo))
-    //   .subscribe(todo => {
-    //     this.store$.dispatch({
+    Observable.interval(300)
+    .take(5)
+    .subscribe(() => {
+     //     this.store$.dispatch({
     //       type: REMOVE_TODO,
     //       payload: todo
     //     });
-    //   });
+    });
   }
   // GET /todos
   getTodos(): Observable<Todo[]> {
-    return this.auth$
-      .flatMap(userId => this.http.get(`${this.api_url}/`))
-      .map(res => res.json() as Todo[]);
+    return this.http.get(`${this.api_url}/data.json`)
+            .map(res => res.json() as Todo[]);
   }
   
   toggleAll(): void{
+  
     // this.getTodos()
     //   .flatMap(todos => Observable.from(todos))
     //   .flatMap(todo=> { 

@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Todo } from '../todo.interface'
+import { Todo } from '../todo.interface';
 
 @Component({
     selector: 'todo-list',
@@ -9,9 +9,10 @@ import { Todo } from '../todo.interface'
 export class TodoListComponent {
     _todos: Todo[] = [];
     @Input()
-    set todos(todos:Todo[]){
+    set todos(todos: Todo[]){
+      console.log(todos)
       if(todos !== null)
-        this._todos = [...todos];
+        this._todos = todos;
     }
     get todos() {
       return this._todos;

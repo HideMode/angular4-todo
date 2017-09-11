@@ -1,6 +1,7 @@
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 
+import { TodoService } from './todo.service';
 import { TodoComponent } from './todo.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
@@ -13,6 +14,7 @@ import { TodoRoutingModule } from './todo-routing.module'
         TodoRoutingModule,
         SharedModule
     ],
+    providers: [TodoService],
     declarations: [
         TodoComponent, TodoFooterComponent, TodoHeaderComponent, TodoItemComponent, TodoListComponent
     ]
