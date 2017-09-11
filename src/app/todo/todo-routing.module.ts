@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TodosComponent } from './todos.component';
+import { TodoComponent } from './todo.component';
 
 
 const routes: Routes = [
   {
     path: 'todo/:filter',
-    component: TodosComponent
+    component: TodoComponent
   }
 ];
 

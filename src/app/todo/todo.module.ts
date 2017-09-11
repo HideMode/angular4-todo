@@ -1,7 +1,7 @@
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 
-import { TodosComponent } from './todos.component';
+import { TodoComponent } from './todo.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import { TodoHeaderComponent } from './todo-header/todo-header.component';
@@ -14,9 +14,9 @@ import { TodoRoutingModule } from './todo-routing.module'
         SharedModule
     ],
     declarations: [
-        TodosComponent, TodoFooterComponent, TodoHeaderComponent, TodoItemComponent, TodoListComponent
+        TodoComponent, TodoFooterComponent, TodoHeaderComponent, TodoItemComponent, TodoListComponent
     ]
 })
-export class TodosModule {
+export class TodoModule {
 
 }

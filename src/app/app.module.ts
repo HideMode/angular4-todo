@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IAppState, rootReducer } from "./store";
 import { SharedModule } from "./shared/shared.module";
-import { TodosModule } from "./todos/todos.module";
+import { TodoModule } from "./todo/todo.module";
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { TodosModule } from "./todos/todos.module";
     NgReduxModule,
     SharedModule,
     AppRoutingModule,
-    TodosModule
+    TodoModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,7 @@
 # Todos
 > https://github.com/wpcfan/awesome-tutorials/tree/chapter09/angular2/ng2-tut
+https://www.youtube.com/watch?v=UEcdQR-NoNA
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.6.
 
 ## Development server
