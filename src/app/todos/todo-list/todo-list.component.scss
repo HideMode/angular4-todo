@@ -1,0 +1,25 @@
+.main {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid #e6e6e6;
+}
+
+.todo-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  li {
+    position: relative;
+    font-size: 24px;
+    border-bottom: 1px solid #ededed;
+  }
+}
+
+.toggle-all {
+  position: absolute;
+  top: -55px;
+  left: -16px;
+  width: 60px;
+  height: 34px;
+  text-align: center;
+}
