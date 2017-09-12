@@ -1,3 +1,4 @@
+import { TodoService } from './../todo.service';
 import { element } from 'protractor';
 import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from "rxjs/Rx";
@@ -17,7 +18,7 @@ export class TodoHeaderComponent {
 
     @Output() onEnterUp = new EventEmitter<string>();
 
-    constructor(private elementRef: ElementRef){
+    constructor(private elementRef: ElementRef, private todoService: TodoService){
         const event$ = Observable.fromEvent(elementRef.nativeElement, 'input')
             .map(() => this.inputValue)
             .filter(input => input.trim().length > 0)
@@ -29,9 +30,11 @@ export class TodoHeaderComponent {
     }
 
     enterUp() {
-        if(this.inputValue.trim().length === 0) return;
-        // 触发onEnterUp事件
-        this.onEnterUp.emit(this.inputValue);
+        this.todoService.addTodo(this.inputValue.trim());
         this.inputValue = "";
+        // if(this.inputValue.trim().length === 0) return;
+        // // 触发onEnterUp事件
+        // this.onEnterUp.emit(this.inputValue);
+        // this.inputValue = "";
     }
 }

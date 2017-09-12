@@ -2,18 +2,11 @@ import { Injectable, Inject } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
-// import { Store } from '@ngrx/store';
+import { NgRedux } from "@angular-redux/store";
 import { Router } from '@angular/router';
 import { Todo } from './todo.interface';
-
-import {
-  ADD_TODO,
-  TOGGLE_TODO,
-  REMOVE_TODO,
-  TOGGLE_ALL,
-  CLEAR_COMPLETED,
-  FETCH_FROM_API
-} from './todo.action';
+import { IAppState } from "../store";
+import { TodoActions } from './todo.actions';
 
 @Injectable()
 export class TodoService {
@@ -25,12 +18,12 @@ export class TodoService {
   constructor(
     private http: Http,
     private router: Router,
-    // private store$: Store<AppState>
+    private todoActions: TodoActions,
+    private ngRedux: NgRedux<IAppState>
     ) {
-    // this.auth$ = this.store$.select(appState => appState.auth)
-    //   .filter(auth => auth.user !== null)
-    //   .map(auth => auth.user.id);
+      
   }
+
   uuid() {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000)
@@ -48,10 +41,17 @@ export class TodoService {
         completed: false
       };
       Observable.interval(300)
-      .take(5)
+      .take(1)
       .subscribe(() => {
-        // this.store$.dispatch({type: ADD_TODO, payload: todoToAdd});
+        this.todoActions.addTodo(todoToAdd);
       });
+  }
+  fetchTodo(): void {
+    this
+    .getTodos()
+    .subscribe((todos: Todo[]) => {
+      this.todoActions.fetchTodo(todos);
+    });
   }
   // It was PUT /todos/:id before
   // But we will use PATCH /todos/:id instead
@@ -59,23 +59,17 @@ export class TodoService {
   toggleTodo(todo: Todo): void {
     const updatedTodo: Todo = Object.assign({}, todo, {completed: !todo.completed});
     Observable.interval(300)
-    .take(5)
+    .take(1)
     .subscribe(() => {
-      // this.store$.dispatch({
-      //         type: TOGGLE_TODO, 
-      //         payload: updatedTodo
-      //       });
+      this.todoActions.toggleTodo(updatedTodo);
     });
   }
   // DELETE /todos/:id
   removeTodo(todo: Todo): void {
     Observable.interval(300)
-    .take(5)
+    .take(1)
     .subscribe(() => {
-     //     this.store$.dispatch({
-    //       type: REMOVE_TODO,
-    //       payload: todo
-    //     });
+      this.todoActions.removeTodo(todo);
     });
   }
   // GET /todos
@@ -84,35 +78,19 @@ export class TodoService {
             .map(res => res.json() as Todo[]);
   }
   
-  toggleAll(): void{
-  
-    // this.getTodos()
-    //   .flatMap(todos => Observable.from(todos))
-    //   .flatMap(todo=> { 
-    //     const url = `${this.api_url}/${todo.id}`;
-    //     let updatedTodo = Object.assign({}, todo, {completed: !todo.completed});
-    //     return this.http
-    //       .patch(url, JSON.stringify({completed: !todo.completed}), {headers: this.headers})
-    //   })
-    //   .subscribe(()=>{
-    //     this.store$.dispatch({
-    //       type: TOGGLE_ALL
-    //     });
-    //   })
+  toggleAll(todos: Todo[]): void{
+    Observable.interval(300)
+    .take(1)
+    .subscribe(() => {
+      this.todoActions.toglleAllTodo(todos);
+    });
   }
   
-  clearCompleted(): void {
-    // this.getTodos()
-    //   .flatMap(todos => Observable.from(todo.filter(t => t.completed)))
-    //   .flatMap(todo=> {
-    //     const url = `${this.api_url}/${todo.id}`;
-    //     return this.http
-    //       .delete(url, {headers: this.headers})
-    //   })
-    //   .subscribe(()=>{
-    //     this.store$.dispatch({
-    //       type: CLEAR_COMPLETED
-    //     });
-    //   });
+  clearCompleted(todos: Todo[]): void {
+    Observable.interval(300)
+    .take(1)
+    .subscribe(() => {
+      this.todoActions.clearCompletedTodo(todos);
+    });
   }
 }
