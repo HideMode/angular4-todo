@@ -10,18 +10,18 @@ import {
   VisibilityFilters
 } from './todo.actions';
 
-export const todoReducer = (state: Todo[] =[], {type, payload}) => {
-  switch (type) {
+export const todoReducer = (state: Todo[] = [], action) => {
+  switch (action.type) {
     case ADD_TODO:
       return [
           ...state,
-          payload
+          action.payload
           ];
     case REMOVE_TODO:
-      return state.filter(todo => todo.id !== payload.id);
+      return state.filter(todo => todo.id !== action.payload.id);
     case TOGGLE_TODO:
       return state.map(todo => {
-        if(todo.id !== payload.id){
+        if(todo.id !== action.payload.id){
           return todo;
         }
         return Object.assign({}, todo, {completed: !todo.completed});
@@ -34,21 +34,19 @@ export const todoReducer = (state: Todo[] =[], {type, payload}) => {
       return state.filter(todo => !todo.completed);
     case FETCH_FROM_API:
       return [
-        ...payload
+        ...action.payload
       ];
     default:
       return state;
   }
 }
 
-export const todoFilterReducer = (state = (todo: Todo) => todo, {type, action}) => {
-  switch (type) {
+export const todoFilterReducer = (state:string="ALL", action) => {
+  switch (action.type) {
     case VisibilityFilters.SHOW_ALL:
-      return todo => todo;
     case VisibilityFilters.SHOW_ACTIVE:
-      return todo => !todo.completed;
     case VisibilityFilters.SHOW_COMPLETED:
-      return todo => todo.completed;
+      return action.type;
     default:
       return state;
   }

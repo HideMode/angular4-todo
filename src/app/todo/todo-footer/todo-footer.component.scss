@@ -44,6 +44,12 @@ a {
   }
 }
 
+a.active{
+  color: white;
+  background-color: rgba(175, 47, 47, 0.2);
+  border: none;
+}
+
 .clear-completed,
 .clear-completed:active {
   float: right;

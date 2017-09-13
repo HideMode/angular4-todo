@@ -2,7 +2,7 @@ import { IAppState } from './store';
 import { NgRedux, NgReduxModule } from "@angular-redux/store";
 import { Todo } from "./todo/todo.interface";
 import { combineReducers, Reducer } from 'redux';
-import { todoReducer } from "./todo/todo.reducer";
+import { todoReducer, todoFilterReducer  } from "./todo/todo.reducer";
 
 /**
  * 定义store结构 (This interface determines the shape of our store)
@@ -10,6 +10,7 @@ import { todoReducer } from "./todo/todo.reducer";
  */
 export interface IAppState {
     todos?: Todo[];
+    todoFilter?: string;
 }
 
 
@@ -19,7 +20,8 @@ export interface IAppState {
  * @export
  */
 export const rootReducer: Reducer<IAppState> = combineReducers({
-    todos: todoReducer
+    todos: todoReducer,
+    todoFilter: todoFilterReducer
 }) 
 
 

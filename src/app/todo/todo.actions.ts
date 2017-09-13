@@ -11,9 +11,9 @@ export const CLEAR_COMPLETED = 'CLEAR_COMPLETED';
 export const FETCH_FROM_API = 'FETCH_FROM_API';
 
 export class VisibilityFilters {
-    static readonly SHOW_ALL: 'ALL';
-    static readonly SHOW_COMPLETED: 'COMPLETED';
-    static readonly SHOW_ACTIVE: 'ACTIVE';
+    static readonly SHOW_ALL = 'ALL';
+    static readonly SHOW_COMPLETED = 'COMPLETED';
+    static readonly SHOW_ACTIVE = 'ACTIVE';
 }
 
 @Injectable()
@@ -55,5 +55,10 @@ export class TodoActions {
     clearCompletedTodo = (payload: Todo[]) => ({
         type: CLEAR_COMPLETED,
         payload
+    })
+
+    @dispatch()
+    filterActions = (filter) => ({
+        type: filter
     })
 }

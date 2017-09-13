@@ -1,8 +1,13 @@
 <div>
-  <todo-header placeholder="What do you want" (onEnterUp)="addTodo($event)">
+  <todo-header placeholder="What do you want to do?" 
+               (onEnterUp)="addTodo($event)">
   </todo-header>
-  <todo-list [todos]="todos" (onToggleAll)="toggleAll()" (onRemoveTodo)="removeTodo($event)" (onToggleTodo)="toggleTodo($event)">
+  <todo-list [todos]="todos" 
+             (onToggleAll)="toggleAll()" 
+             (onRemoveTodo)="removeTodo($event)" 
+             (onToggleTodo)="toggleTodo($event)">
   </todo-list>
-  <todo-footer [itemCount]="todos.length " (onClear)="clearCompleted()">
+  <todo-footer [itemCount]="(todos).length " 
+               (onClear)="clearCompleted()">
   </todo-footer>
 </div>
